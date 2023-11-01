@@ -1,0 +1,155 @@
+*, ::before, ::after {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+}
+
+.modal1{
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    background-color: rgb(38 38 38 / 0.7);
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 50;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.modal2{
+    margin: 1.5rem auto;
+    position: relative;
+    height: auto;
+    width: 40%;
+}
+
+.content{
+    transition-duration: 300ms;
+    height: 100%;
+    opacity: 1;
+    --tw-translate-y: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.trans{
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.non-trans{
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.below-content{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border-width: 0;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    background-color: rgb(255 255 255 / 1);
+}
+.below-content:focus{
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.below-content1{
+    padding: 1rem;
+    border-bottom-width: 1px;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+}
+
+.header-modal{
+    width: 100px;
+    height: 100px;
+}
+
+.modal-button{
+    padding: 0.25rem;
+    border-width: 0;
+    position: absolute;
+    left: 2.25rem;
+    cursor: pointer;
+}
+
+.below-button{
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.text{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+}
+
+.body-modal{
+    position: relative;
+    padding: 1rem;
+    flex: 1 1 auto;
+}
+
+.footer-modal{
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.in-footer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.bodyContent{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.bodyContent1{
+    display: grid;
+    overflow-y: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.col{
+    display: grid;
+    overflow-y: auto;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 0.75rem;
+    grid-column: span 1 / span 1;
+}
