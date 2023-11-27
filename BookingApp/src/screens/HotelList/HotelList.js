@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -8,35 +8,22 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import axios from "../../axios";
+import hotels from './mockData';
 
 const HotelList = ({navigation, route}) => {
   const {searchParams} = route.params;
-  const [hotelList, setHotelList] =  useState([]);
-
-  useEffect(  () => {
-    // console.log(searchParams)
-    const fetchHotels = async () =>{
-      try{
-        const response = await axios.get('Hotel')
-        setHotelList(response.data)
-      }catch (e){
-        console.log(e);
-      }
-    }
-    fetchHotels();
-  },[])
-
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.hotelItem}
-        onPress={() => navigation.navigate('DetailHotel', {hotel: item, searchParams})}>
-        <Image source={require('../../assets/images/hotel1.png')} style={styles.hotelImage} />
+        onPress={() =>
+          navigation.navigate('DetailHotel', {searchParams, hotel: item})
+        }>
+        <Image source={item.image} style={styles.hotelImage} />
         <View style={styles.hotelInfo}>
-          <Text style={styles.hotelName}>{item.hotelName}</Text>
-          <Text style={styles.hotelRating}>{item.address}</Text>
-          <Text style={styles.hotelPrice}>Price: {item.minPrice} VND</Text>
+          <Text style={styles.hotelName}>{item.name}</Text>
+          <Text style={styles.hotelRating}>Rating: {item.rating}/10</Text>
+          <Text style={styles.hotelPrice}>Price: {item.price} VND</Text>
         </View>
       </TouchableOpacity>
     );
@@ -44,7 +31,7 @@ const HotelList = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={[styles.header, {backgroundColor: '#3399FF'}]}>
+      <View style={[styles.header, {backgroundColor: '#0099FF'}]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={require('../../assets/icons/icon_back.png')}
@@ -62,9 +49,9 @@ const HotelList = ({navigation, route}) => {
         </Text>
       </View>
       <FlatList
-        data={hotelList}
+        data={hotels}
         renderItem={renderItem}
-        keyExtractor={item => item.hotelID.toString()}
+        keyExtractor={item => item.id.toString()}
       />
     </SafeAreaView>
   );
@@ -98,8 +85,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   hotelImage: {
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     marginRight: 10,
   },
   hotelInfo: {

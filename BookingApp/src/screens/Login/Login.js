@@ -6,26 +6,12 @@ import {
   View,
   Image,
 } from 'react-native';
-import React, { useState } from "react";
+import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../components/CustomTextInput';
-import axios from "../../axios";
 
 const Login = () => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = () => {
-    axios.post('Login/Login', {
-      username: username,
-      password: password
-    }).then((response) => {
-      console.log(response.data)
-    })
-    navigation.navigate('Home')
-  }
-
   return (
     <SafeAreaView>
       <View style={styles.headerTextView}>
@@ -42,7 +28,7 @@ const Login = () => {
             <TouchableOpacity
               onPress={() => navigation.navigate('SignUp')}
               style={styles.signUpButton}>
-              <Text style={styles.signUpHighlightText}>Sign up</Text>
+              <Text style={styles.signUpHighlightText}>Sign up </Text>
             </TouchableOpacity>
             <Text style={styles.signUpText}>here</Text>
           </View>
@@ -50,8 +36,8 @@ const Login = () => {
       </View>
       <View style={styles.login}>
         <View>
-          <Text style={styles.loginText}>Email address</Text>
-          <CustomTextInput style={styles.textInput} placeholder="Email" text={username} setText={setUsername}/>
+          <Text style={styles.loginText}>Email adress</Text>
+          <CustomTextInput style={styles.textInput} placeholder="Email" />
         </View>
         <View>
           <Text style={styles.loginText}>Password</Text>
@@ -59,7 +45,6 @@ const Login = () => {
             style={styles.textInput}
             placeholder="********"
             secure={true}
-            text={password} setText={setPassword}
           />
         </View>
         <View style={styles.forgotPassView}>
@@ -73,7 +58,7 @@ const Login = () => {
         <View>
           <TouchableOpacity
             style={styles.buttonSignIn}
-            onPress={() => handleLogin()}>
+            onPress={() => navigation.navigate('Home')}>
             <Text style={styles.textButton}>SIGN IN</Text>
           </TouchableOpacity>
         </View>
@@ -112,7 +97,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerText: {
-    textAlign: 'center',
     fontSize: 35,
     fontWeight: 'bold',
   },
