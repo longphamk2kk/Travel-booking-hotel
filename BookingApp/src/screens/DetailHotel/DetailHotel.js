@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
-  ScrollView,
 } from 'react-native';
-import axios from '../../axios';
 const mockReviews = [
   {comment: 'Great hotel, highly recommend!', author: 'John Doe'},
   {comment: 'Excellent service and comfortable rooms.', author: 'Jane Smith'},
@@ -17,19 +15,7 @@ const mockReviews = [
 ];
 const DetailHotel = ({navigation, route}) => {
   const {hotel} = route.params;
-  const {searchParams} = route.params
-  const [hotelDetail, setHotelDetail] = useState()
-  const [roomList, setRoomList] = useState([])
-
-  useEffect(() => {
-    axios.get("Hotel/"+hotel.hotelID)
-      .then(async (response) => {
-        setHotelDetail(response.data)
-        // console.log()
-        setRoomList(response.data.Rooms)
-      })
-  },[hotel.hotelID])
-
+  const {searchParams} = route.params;
   const renderAmenityItem = ({item}) => {
     return (
       <View style={styles.amenityView}>
@@ -47,9 +33,9 @@ const DetailHotel = ({navigation, route}) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={[styles.header, {backgroundColor: '#1A94FF'}]}>
+      <View style={[styles.header, {backgroundColor: '#0099FF'}]}>
         <TouchableOpacity
-          style={{right: 90}}
+          style={{right: 115}}
           onPress={() => navigation.goBack()}>
           <Image
             source={require('../../assets/icons/icon_back.png')}
@@ -57,20 +43,16 @@ const DetailHotel = ({navigation, route}) => {
           />
         </TouchableOpacity>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-          Chi tiết khách sạn
+          Chi tiet khach san
         </Text>
       </View>
-      <Image
-        source={require('../../assets/images/hotel1.png')}
-        style={styles.hotelImage}
-      />
+      <Image source={hotel.image} style={styles.hotelImage} />
       <View style={styles.content}>
-        <Text style={[styles.hotelName, {color: '#020202'}]}>
-          {hotel.hotelName}
-        </Text>
+        <Text style={[styles.hotelName, {color: '#0099FF'}]}>{hotel.name}</Text>
+        <Text style={styles.hotelDescription}>{hotel.description}</Text>
         <View style={styles.ratingContainer}>
           <Text
-            style={[styles.ratingText, {fontWeight: 'bold', color: '#020202'}]}>
+            style={[styles.ratingText, {fontWeight: 'bold', color: '#0099FF'}]}>
             Đánh giá:
           </Text>
           <Text style={styles.ratingValue}>{hotel.rating}/10</Text>
@@ -81,7 +63,7 @@ const DetailHotel = ({navigation, route}) => {
             data={mockReviews} // Sử dụng dữ liệu giả định
             renderItem={renderReviewItem}
             keyExtractor={(item, index) => index.toString()}
-            horizontal={true}
+            horizontal
             showsHorizontalScrollIndicator={false}
           />
         </View>
@@ -101,15 +83,13 @@ const DetailHotel = ({navigation, route}) => {
         </View>
         <View style={styles.bookingContainer}>
           <Text style={styles.sectionTitle}>Đặt phòng</Text>
-          <Text style={styles.priceText}>Giá: {hotel.minPrice} VND/ngày</Text>
-          <Text style={styles.sectionTitle}>Mô tả</Text>
-          {/*<Text style={styles.hotelDescription}>{hotel.description}</Text>*/}
+          <Text style={styles.priceText}>Giá: {hotel.price} VND/ngày</Text>
           <TouchableOpacity
             style={styles.bookingButton}
             onPress={() =>
-              navigation.navigate('RoomsScreen', {hotelDetail, searchParams})
+              navigation.navigate('BookingScreen', {searchParams, hotel})
             }>
-            <Text style={styles.bookingButtonText}>Chọn phòng</Text>
+            <Text style={styles.bookingButtonText}>Đặt ngay</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -161,13 +141,13 @@ const styles = StyleSheet.create({
   ratingValue: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#181616',
+    color: '#0099FF',
     marginRight: 5,
   },
   reviewsText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#0a0a0a',
+    color: '#0099FF',
   },
   amenitiesContainer: {
     marginBottom: 10,
@@ -176,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#231f1f',
+    color: '#0099FF',
   },
   amenityView: {
     backgroundColor: '#ECECEC',
@@ -200,7 +180,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   bookingButton: {
-    backgroundColor: '#1A94FF',
+    backgroundColor: '#0099FF',
     paddingVertical: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -215,14 +195,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   reviewItem: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#99FFFF',
     margin: 5,
     borderRadius: 10,
     height: 70,
     padding: 5,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#000000'
   },
   reviewAuthor: {
     fontSize: 15,
