@@ -1,11 +1,26 @@
-const express = require('express');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const registerRouter = require("./Api/App/registerRouter");
+const loginRouter = require("./Api/App/loginRouter");
+
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+mongoose.connect(
+  "mongodb+srv://longphamk2kk:longpham1808@bookinghotel.shiqdl4.mongodb.net/booking_hotel_system?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.use("/register", registerRouter);
+
+app.use("/login", loginRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

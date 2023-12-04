@@ -58,7 +58,6 @@ const Home = ({navigation}) => {
         showsVerticalScrollIndicator={false}>
         <View style={styles.filterView}>
           <CustomSort
-            placeholder={'Nhap diem den, khach san, ...'}
             navigation={navigation}
           />
         </View>

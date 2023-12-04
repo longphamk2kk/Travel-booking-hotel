@@ -6,12 +6,43 @@ import {
   View,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../components/CustomTextInput';
-
+import {loginUser} from '../../api';
 const Login = () => {
   const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    console.log('Username:', username);
+    console.log('Password:', password);
+
+    try {
+      const userData = {username, password};
+      const response = await loginUser(userData);
+
+      console.log('User logged in successfully:', response.data);
+      navigation.navigate('Home');
+    } catch (error) {
+      console.error('Error logging in user:', error);
+    }
+  };
+  const handleUsernameChange = text => {
+    console.log('Username changed:', text);
+    setUsername(text);
+  };
+
+  const handlePasswordChange = text => {
+    console.log('Password changed:', text);
+    setPassword(text);
+  };
+  // useEffect(() => {
+  //   console.log('Username:', username);
+  //   console.log('Password:', password);
+  // }, [username, password]);
+
   return (
     <SafeAreaView>
       <View style={styles.headerTextView}>
@@ -36,8 +67,14 @@ const Login = () => {
       </View>
       <View style={styles.login}>
         <View>
-          <Text style={styles.loginText}>Email adress</Text>
-          <CustomTextInput style={styles.textInput} placeholder="Email" />
+          <Text style={styles.loginText}>Email address</Text>
+          <CustomTextInput
+            style={styles.textInput}
+            placeholder="Email"
+            onChangeText={handleUsernameChange}
+            text={username} // Thêm prop text
+            setText={setUsername}
+          />
         </View>
         <View>
           <Text style={styles.loginText}>Password</Text>
@@ -45,6 +82,9 @@ const Login = () => {
             style={styles.textInput}
             placeholder="********"
             secure={true}
+            onChangeText={handlePasswordChange}
+            text={password} // Thêm prop text
+            setText={setPassword}
           />
         </View>
         <View style={styles.forgotPassView}>
@@ -56,9 +96,7 @@ const Login = () => {
       </View>
       <View style={styles.buttonView}>
         <View>
-          <TouchableOpacity
-            style={styles.buttonSignIn}
-            onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.buttonSignIn} onPress={handleLogin}>
             <Text style={styles.textButton}>SIGN IN</Text>
           </TouchableOpacity>
         </View>
