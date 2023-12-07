@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const registerRouter = require("./Api/App/registerRouter");
 const loginRouter = require("./Api/App/loginRouter");
+const hotelAddRouter = require("./Api/Web/AdminWeb/hotelAddRouter");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,8 @@ mongoose.connect(
 app.use("/register", registerRouter);
 
 app.use("/login", loginRouter);
+
+app.use("/hotel", hotelAddRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
