@@ -8,7 +8,7 @@ import {format, addDays} from 'date-fns';
 import RoomSelectionModal from './RoomSelectionModal';
 import PriceSelectionModal from './PriceSelectionModal';
 
-const CustomSort = ({placeholder, style, navigation}) => {
+const CustomSort = ({ style, navigation}) => {
   // const handleBooking = () => {
   //   navigation.navigate('HotelList');
   // };
