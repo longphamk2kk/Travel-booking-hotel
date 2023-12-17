@@ -23,11 +23,23 @@ const AddPhoneNumber = () => {
       <View style={styles.headerTextView}>
         <Text style={styles.headerText}>
           To continue enter{'\n'}your{' '}
-          <Text style={styles.highlightText}>phone number</Text>
+          <Text style={styles.highlightText}>infomation</Text>
         </Text>
         <Text style={styles.middleText}>
-          Enter your phone number to use BookingAppp and enjoy your trip.
+          Enter your infomation to use BookingAppp and enjoy your trip.
         </Text>
+      </View>
+      <View style={styles.phoneView}>
+        <Text style={styles.phoneText}>First name</Text>
+        <CustomTextInput placeholder="First name" style={styles.phoneInput} />
+      </View>
+      <View style={styles.phoneView}>
+        <Text style={styles.phoneText}>Last name</Text>
+        <CustomTextInput placeholder="Last name" style={styles.phoneInput} />
+      </View>
+      <View style={styles.phoneView}>
+        <Text style={styles.phoneText}>Email</Text>
+        <CustomTextInput placeholder="Email" style={styles.phoneInput} />
       </View>
       <View style={styles.phoneView}>
         <Text style={styles.phoneText}>Phone number</Text>
@@ -36,6 +48,10 @@ const AddPhoneNumber = () => {
           placeholder="Phone number"
           style={styles.phoneInput}
         />
+      </View>
+      <View style={styles.phoneView}>
+        <Text style={styles.phoneText}>Adress</Text>
+        <CustomTextInput placeholder="Adress" style={styles.phoneInput} />
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity
@@ -78,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   phoneView: {
-    marginTop: 30,
+    marginTop: 10,
     marginLeft: 30,
   },
   phoneInput: {
