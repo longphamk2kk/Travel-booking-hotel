@@ -7,11 +7,60 @@ import {
   Image,
   KeyboardAvoidingView,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../components/CustomTextInput';
+import {registerUser} from '../../api';
 const SignUp = () => {
   const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
+
+  useEffect(() => {
+    setIsUsernameValid(username.length >= 6); // Ví dụ: Yêu cầu ít nhất 6 ký tự
+
+    setIsPasswordValid(password.length >= 8); // Ví dụ: Yêu cầu ít nhất 8 ký tự
+
+    setIsConfirmPasswordValid(confirmPassword === password);
+  }, [username, password, confirmPassword]);
+  const handleUsernameChange = text => {
+    console.log('Username changed:', text);
+    setUsername(text);
+  };
+  const handlePasswordChange = text => {
+    console.log('Username changed:', text);
+    setPassword(text);
+  };
+  const handleConfirmPasswordChange = text => {
+    console.log('Username changed:', text);
+    setConfirmPassword(text);
+  };
+  const handleSignUp = async () => {
+    try {
+      if (!isUsernameValid || !isPasswordValid || !isConfirmPasswordValid) {
+        return;
+      }
+
+      const userData = {username, password};
+      const response = await registerUser(userData);
+
+      console.log('Sign up successful:', response.data);
+      navigation.navigate('AddPhoneNumber');
+      if (response.data && response.data.token) {
+        await AsyncStorage.setItem('token', response.data.token);
+
+        navigation.navigate('AddPhoneNumber');
+      } else {
+      }
+    } catch (error) {
+      console.error('Error during sign up:', error);
+    }
+  };
   return (
     // <SafeAreaView>
     <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
@@ -37,13 +86,19 @@ const SignUp = () => {
           </Text>
         </View>
         <View style={styles.login}>
-          <View>
+          {/* <View>
             <Text style={styles.loginText}>Full Name</Text>
             <CustomTextInput style={styles.textInput} placeholder="Full Name" />
-          </View>
+          </View> */}
           <View>
-            <Text style={styles.loginText}>Email adress</Text>
-            <CustomTextInput style={styles.textInput} placeholder="Email" />
+            <Text style={styles.loginText}>Username</Text>
+            <CustomTextInput
+              style={styles.textInput}
+              placeholder="Username"
+              onChangeText={handleUsernameChange}
+              setText={setUsername}
+              text={username}
+            />
           </View>
           <View>
             <Text style={styles.loginText}>Password</Text>
@@ -51,6 +106,9 @@ const SignUp = () => {
               style={styles.textInput}
               placeholder="********"
               secure={true}
+              onChangeText={handlePasswordChange}
+              setText={setPassword}
+              text={password}
             />
           </View>
           <View>
@@ -59,13 +117,16 @@ const SignUp = () => {
               style={styles.textInput}
               placeholder="********"
               secure={true}
+              onChangeText={handleConfirmPasswordChange}
+              setText={setConfirmPassword}
+              text={confirmPassword}
             />
           </View>
         </View>
         <View style={styles.buttonView}>
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('AddPhoneNumber')}
+              onPress={handleSignUp}
               style={styles.buttonSignIn}>
               <Text style={styles.textButton}>CONTINUE</Text>
             </TouchableOpacity>

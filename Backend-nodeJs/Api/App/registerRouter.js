@@ -7,7 +7,8 @@ const UserModel = require("../../models/UserModel");
 
 router.post("/", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
+    console.log(req.body,'aloalo')
 
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
@@ -16,7 +17,7 @@ router.post("/", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new UserModel({
-      email,
+      username,
       password: hashedPassword,
     });
 
