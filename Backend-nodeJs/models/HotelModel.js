@@ -15,6 +15,12 @@ const hotelSchema = new mongoose.Schema({
   checkInTime: String,
   checkOutTime: String,
   price: Number,
+  roomTypes: [String], // Phân loại phòng
+  location: {
+    city: String,
+    country: String,
+    address: String,
+  },
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

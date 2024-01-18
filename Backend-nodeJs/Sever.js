@@ -12,6 +12,21 @@ const logoutUserRouter = require("./Api/App/logoutRouter");
 const logoutAdminRouter = require("./Api/Web/AdminWeb/logoutRouter");
 const addUserRouter = require("./Api/App/addUserRouter");
 const deleteHotelRouter = require("./Api/Web/AdminWeb/deleteHotelRouter");
+const changePasswordRouter = require("./Api/App/changePasswordRouter");
+const deleteUserRouter = require("./Api/App/deleteUserRouter");
+const getUsersRouter = require("./Api/Web/AdminWeb/getUserRouter");
+const resetPasswordRouter = require("./Api/App/resetPasswordRouter");
+const bookingCreateRouter = require("./Api/App/bookingCreate");
+const createPaymentRouter = require("./Api/App/createPaymentRouter");
+const confirmPaymentRouter = require("./Api/App/confirmPaymentRouter");
+const cancelBookingRouter = require("./Api/App/cancelBookingRouter");
+const bookingHistoryRouter = require("./Api/App/bookingHistoryRouter");
+const paymentHistoryRouter = require("./Api/App/paymentHistoryRouter");
+const bookingDetailsRouter = require("./Api/App/bookingDetailsRouter");
+const paymentDetailsRouter = require("./Api/App/paymentDetailsRouter");
+const paymentStatusRouter = require("./Api/App/paymentStatusRouter");
+// const convertCurrencyRouter = require('./Api/App/convertCurrencyRouter');
+// const exchangeRateRouter = require('./Api/App/exchangeRateRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,6 +62,37 @@ app.use("/logoutadmin", logoutAdminRouter);
 app.use("/deleteHotel", deleteHotelRouter);
 
 app.use("/user", addUserRouter);
+
+app.use("/change-password", changePasswordRouter);
+
+app.use("/deleteuser", deleteUserRouter);
+
+app.use("/getusers", getUsersRouter);
+
+app.use("/user", resetPasswordRouter);
+
+app.use("/createBooking", bookingCreateRouter);
+
+app.use("/createPayment", createPaymentRouter);
+
+app.use("/confirmPayment", confirmPaymentRouter);
+
+app.use("/cancelBooking", cancelBookingRouter);
+
+app.use("/bookingHistory", bookingHistoryRouter);
+
+app.use("/paymentHistory", paymentHistoryRouter);
+
+app.use("/bookingDetails", bookingDetailsRouter);
+
+app.use("/paymentDetails", paymentDetailsRouter);
+
+app.use("/paymentStatus", paymentStatusRouter);
+
+// app.use("/convertCurrency", convertCurrencyRouter);
+
+// app.use("/exchangeRate", exchangeRateRouter);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
